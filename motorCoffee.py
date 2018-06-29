@@ -5,7 +5,7 @@ import time
 EnA = "P8_13"
 ln1 = "P8_14"
 ln2 = "P8_15"
-Bt  = "P9_36"
+Bt  = "P8_8"
  
 GPIO.setup(EnA, GPIO.OUT)
 GPIO.setup(ln1, GPIO.OUT)
