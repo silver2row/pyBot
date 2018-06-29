@@ -23,6 +23,7 @@ GPIO.output(EnA, GPIO.HIGH)
  
 def b_callback(unused):
     time.sleep(0.1)
+    print ("Button pressed")
     if GPIO.input(Bt):
         #print "start"
         PWM.set_duty_cycle(EnA, 100) #100 only for testing
@@ -35,8 +36,7 @@ GPIO.add_event_detect(Bt, GPIO.BOTH, callback=b_callback, bouncetime=300)
  
 def testPWM():
     GPIO.output(ln1, GPIO.HIGH)
-    GPIO.output(ln2, GPIO.HIGH)
-    PWM.start(EnA, 0, 100)
+    GPIO.output(ln2, GPIO.LOW)
     for x in range(0, 100):
         PWM.set_duty_cycle(EnA, x)
         time.sleep(0.05)
