@@ -1,5 +1,4 @@
 import Adafruit_BBIO.GPIO as GPIO
-import Adafruit_BBIO.PWM as PWM
 import time
  
 EnA = "P8_13"
@@ -14,8 +13,6 @@ GPIO.setup(EnA, GPIO.OUT)
 GPIO.setup(ln1, GPIO.OUT)
 GPIO.setup(ln2, GPIO.OUT)
 GPIO.setup(Bt, GPIO.IN)
-PWM.start(EnA, 50, 100, 0)
-PWM.start(EnB, 50, 100, 0)
  
 GPIO.output(EnA, GPIO.LOW)
 GPIO.output(EnB, GPIO.LOW)
@@ -31,24 +28,22 @@ def b_callback(unused):
     print ("Button pressed")
     if GPIO.input(Bt):
         #print "start"
-        PWM.start(EnA, 100)
-        PWM.start(EnB, 100)
+        GPIO.output(EnA, x)
+        GPIO.output(EnB, x)
     else:
         #print "stop"
-        PWM.stop(EnA, 0)
-        PWM.stop(EnB, 0)
+        GPIO.output(EnA, 0) 
  
+GPIO.event_detected(Bt)
  
-GPIO.event_detected(Bt, GPIO.BOTH, callback=b_callback, bouncetime=300)
- 
-def testPWM():
+def testP():
     GPIO.output(ln1, GPIO.HIGH)
     GPIO.output(ln2, GPIO.LOW)
     GPIO.output(ln3, GPIO.HIGH)
     GPIO.output(ln4, GPIO.LOW)
     for x in range(0, 100):
-        PWM.start(EnA, x)
-        PWM.start(EnB, x)
+        GPIO.output(EnA, GPIO.HIGH)
+        GPIO.output(EnB, GPIO.HIGH)
         time.sleep(0.05)
  
  
@@ -58,26 +53,23 @@ def testH():
         GPIO.output(ln2, GPIO.LOW)
         GPIO.output(ln3, GPIO.HIGH)
         GPIO.output(ln4, GPIO.LOW)
-        time.sleep(1)
+        time.sleep(10)
  
         GPIO.output(ln1, GPIO.HIGH)
         GPIO.output(ln2, GPIO.HIGH)
         GPIO.output(ln3, GPIO.HIGH)
         GPIO.output(ln4, GPIO.HIGH)
-        time.sleep(1)
+        time.sleep(10)
  
         GPIO.output(ln1, GPIO.LOW)
         GPIO.output(ln2, GPIO.HIGH)
         GPIO.output(ln3, GPIO.LOW)
         GPIO.output(ln4, GPIO.HIGH)
-        time.sleep(1)
+        time.sleep(10)
         print ("Reverse!")
        
         GPIO.output(ln1, GPIO.LOW)
         GPIO.output(ln2, GPIO.LOW)
         GPIO.output(ln3, GPIO.LOW)
         GPIO.output(ln4, GPIO.LOW)
-        time.sleep(1)
- 
-testPWM()
-testH()
+        time.sleep(10)
