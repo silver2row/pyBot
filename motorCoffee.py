@@ -23,16 +23,17 @@ GPIO.output(EnA, GPIO.HIGH)
 GPIO.output(EnB, GPIO.HIGH)
  
  
-def b_callback(unused):
+def call(unused):
     time.sleep(0.1)
     print ("Button pressed")
     if GPIO.input(Bt):
         #print "start"
-        GPIO.output(EnA, x)
-        GPIO.output(EnB, x)
+        GPIO.output(EnA, GPIO.HIGH)
+        GPIO.output(EnB, GPIO.HIGH)
     else:
         #print "stop"
-        GPIO.output(EnA, 0) 
+        GPIO.output(EnA, GPIO.LOW)
+        GPIO.output(EnB, GPIO.LOW)
  
 GPIO.event_detected(Bt)
  
@@ -41,10 +42,10 @@ def testP():
     GPIO.output(ln2, GPIO.LOW)
     GPIO.output(ln3, GPIO.HIGH)
     GPIO.output(ln4, GPIO.LOW)
-    for x in range(0, 100):
+    for x in range(0, 8):
         GPIO.output(EnA, GPIO.HIGH)
         GPIO.output(EnB, GPIO.HIGH)
-        time.sleep(0.05)
+        time.sleep(15)
  
  
 def testH():
@@ -73,3 +74,6 @@ def testH():
         GPIO.output(ln3, GPIO.LOW)
         GPIO.output(ln4, GPIO.LOW)
         time.sleep(10)
+call(0)
+testP()
+testH()
