@@ -4,14 +4,21 @@ import time
  
 EnA = "P8_13"
 EnB = "P8_19"
-ln1 = "P8_14"
-ln2 = "P8_15"
+
+I1A = "P8_9"
+I2A = "P8_10"
+I1B = "P8_11"
+I2B = "P8_12"
+
 Bt  = "P8_8"
  
 GPIO.setup(EnA, GPIO.OUT)
 GPIO.setup(EnB, GPIO.OUT)
-GPIO.setup(ln1, GPIO.OUT)
-GPIO.setup(ln2, GPIO.OUT)
+GPIO.setup(I1A, GPIO.OUT)
+GPIO.setup(I2A, GPIO.OUT)
+GPIO.setup(I1B, GPIO.OUT)
+GPIO.setup(I2B, GPIO.OUT)
+
 GPIO.setup(Bt, GPIO.IN)
 PWM.start(EnA, 0, 100)
 PWM.start(EnB, 0, 100)
@@ -33,8 +40,13 @@ def b_callback(unused):
 GPIO.add_event_detect(Bt, GPIO.BOTH, callback=b_callback, bouncetime=300)
  
 def testPWM():
-    GPIO.output(ln1, GPIO.HIGH)
-    GPIO.output(ln2, GPIO.HIGH)
+    #Direction depends on wiring
+    GPIO.output(I1A, GPIO.HIGH)
+    GPIO.output(I2A, GPIO.LOW)
+   
+    GPIO.output(I1B, GPIO.HIGH)
+    GPIO.output(I2B, GPIO.LOW)
+  
     for x in range(0,100):
         PWM.set_duty_cycle(EnA, x)
         PWM.set_duty_cycle(EnB, x)
@@ -62,4 +74,4 @@ def testH():
         time.sleep(1)
  
 testPWM()
-testH()
+#testH()
